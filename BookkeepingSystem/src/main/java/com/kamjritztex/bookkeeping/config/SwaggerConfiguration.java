@@ -17,22 +17,54 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class SwaggerConfiguration {
 
-	@Bean
-	public OpenAPI defineOpenApi() {
-		Server server = new Server();
-		server.setUrl("http://localhost:8088");
-		server.setDescription("Security controller");
+    @Bean
+    public OpenAPI myOpenAPI() {
+        Server devServer = new Server();
+        devServer.setUrl("http://localhost:8089");
+        devServer.setDescription("Server URL in Development environment");
 
-		Contact myContact = new Contact();
-		myContact.setName("Sumit Mishra");
-		myContact.setEmail("sumitkumarmishra8235@gmail.com");
-
-		Info information = new Info().title(" Secured Bookkeeping website API").version("1.0")
-				.summary("This Project is created to make a double entry Bookkeeping Website with Proper Authentications")
-				.description("This API exposes endpoints to handle whole the bookkeeping website.").contact(myContact);
-		return new OpenAPI().info(information).addSecurityItem(new SecurityRequirement().addList("JWT Token Authentication")).components(new Components().addSecuritySchemes("JWT Token Authentication", new SecurityScheme()
-				.name("JWT Token Authentication").type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT"))).servers(List.of(server));
-	}
+        Info info = new Info()
+                .title("Employee CRUD REST API")
+                .version("1.0")
+                .description("This API exposes endpoints to manage SPIKE crud operations.")
+                .termsOfService("https://www.w3.org/Provider/Style/dummy.html");
+        return new OpenAPI()
+                .info(info)
+                .servers(List.of(devServer))
+                .addSecurityItem(new SecurityRequirement()
+                        .addList("JavaInUseSecurityScheme"))
+                .components(new Components()
+                        .addSecuritySchemes("JavaInUseSecurityScheme", new SecurityScheme()
+                                .name("JavaInUseSecurityScheme")
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT"))
+                );
+    }
+//    @Bean
+//    public OpenAPI myOpenAPI() {
+//        Server devServer = new Server();
+//        devServer.setUrl("http://localhost:8089");
+//        devServer.setDescription("Server URL in Development environment");
+//
+//        Info info = new Info()
+//                .title("Customer CRUD REST API")
+//                .version("1.0")
+//                .description("This API exposes endpoints to manage Bookkeeping Crud.");
+////                .termsOfService("https://www.w3.org/Provider/Style/dummy.html");
+//        return new OpenAPI()
+//                .info(info)
+//                .servers(List.of(devServer))
+//                .addSecurityItem(new SecurityRequirement()
+//                        .addList("JavaInUseSecurityScheme"))
+//                .components(new Components()
+//                        .addSecuritySchemes("JavaInUseSecurityScheme", new SecurityScheme()
+//                                .name("JavaInUseSecurityScheme")
+//                                .type(SecurityScheme.Type.HTTP)
+//                                .scheme("bearer")
+//                                .bearerFormat("JWT"))
+//                );
+//    }
 
 
 

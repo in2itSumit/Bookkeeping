@@ -9,7 +9,7 @@ import com.kamjritztex.bookkeeping.entity.Role;
 
 
 @Repository
-public interface RoleRepository extends MongoRepository<Role, Integer> {
+public interface RoleRepository extends MongoRepository<Role, String> {
 	
 	Optional<Role> findByName(String name);
 

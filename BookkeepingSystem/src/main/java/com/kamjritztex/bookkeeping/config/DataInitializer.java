@@ -8,10 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.kamjritztex.bookkeeping.entity.Customer;
-import com.kamjritztex.bookkeeping.entity.Permission;
 import com.kamjritztex.bookkeeping.entity.Role;
 import com.kamjritztex.bookkeeping.repository.CustomerRepository;
-import com.kamjritztex.bookkeeping.repository.PermissionRepository;
 import com.kamjritztex.bookkeeping.repository.RoleRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,30 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 public class DataInitializer {
 
     @Bean
-    CommandLineRunner init(CustomerRepository customerRepository, RoleRepository roleRepository,
-                           PermissionRepository permissionRepository) {
+    CommandLineRunner init(CustomerRepository customerRepository, RoleRepository roleRepository) {
         return args -> {
             // Create and save roles
             Role superAdminRole = createAndSaveRole(roleRepository, "SUPER_ADMIN");
             Role adminRole = createAndSaveRole(roleRepository, "ADMIN");
             Role customerRole = createAndSaveRole(roleRepository, "CUSTOMER");
-
-            // Create and save permissions
-            Permission readPermission = createAndSavePermission(permissionRepository, "READ_PRIVILEGES");
-            Permission writePermission = createAndSavePermission(permissionRepository, "WRITE_PRIVILEGES");
-            Permission updatePermission = createAndSavePermission(permissionRepository, "UPDATE_PRIVILEGES");
-            Permission deletePermission = createAndSavePermission(permissionRepository, "DELETE_PRIVILEGES");
-            Permission updateProfilePermission = createAndSavePermission(permissionRepository, "UPDATE_PROFILE_PRIVILEGES");
-
-            // Assign permissions to roles
-            superAdminRole.setPermissions(Set.of(readPermission, writePermission, updatePermission, deletePermission));
-            roleRepository.save(superAdminRole);
-
-            adminRole.setPermissions(Set.of(readPermission, writePermission, updatePermission));
-            roleRepository.save(adminRole);
-            
-            customerRole.setPermissions(Set.of(readPermission,updateProfilePermission));
-            roleRepository.save(customerRole);
 
             // Create and save employees
             createAndSaveCustomer(customerRepository, "superadmin", "superadmin", "superadmin@gmail.com", "superadmin", superAdminRole);
@@ -63,15 +43,6 @@ public class DataInitializer {
         });
     }
 
-    private Permission createAndSavePermission(PermissionRepository permissionRepository, String permissionName) {
-        return permissionRepository.findByPermission(permissionName).orElseGet(() -> {
-            Permission permission = new Permission();
-            permission.setPermission(permissionName);
-            permissionRepository.insert(permission);
-//            log.debug("Permission {} created", permissionName);
-            return permission;
-        });
-    }
 
     private void createAndSaveCustomer(CustomerRepository customerRepository, String firstName, String lastName, String email, String password, Role role) {
         if (customerRepository.findByEmailAndStatus(email,true).isEmpty()) {
@@ -79,6 +50,7 @@ public class DataInitializer {
             customer.setFirstName(firstName);
             customer.setLastName(lastName);
             customer.setEmail(email);
+            customer.setStatus(true);
             customer.setPassword(new BCryptPasswordEncoder().encode(password));
             customer.setRoles(Set.of(role)); // Ensure that 'role' is saved and not transient
             customerRepository.insert(customer);

@@ -43,6 +43,5 @@ public class Role extends Auditable{
 	@Indexed(unique = true)
 	private String name;
 	private Set<Customer> customer = new HashSet<>();
-	private Set<Permission> permissions;
 
 }

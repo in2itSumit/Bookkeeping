@@ -3,7 +3,6 @@ package com.kamjritztex.bookkeeping.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,17 +36,17 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
         Customer customer = customerOptional.get();
         
-        Set<SimpleGrantedAuthority> permissions = customer.getRoles().stream()
-        .flatMap(role -> role.getPermissions().stream())
-      .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-      .collect(Collectors.toSet());
+//        Set<SimpleGrantedAuthority> permissions = customer.getRoles().stream()
+//        .flatMap(role -> role.getPermissions().stream())
+//      .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+//      .collect(Collectors.toSet());
         
         List<SimpleGrantedAuthority> roles = customer.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName()))
         .collect(Collectors.toList());
         
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         authorities.addAll(roles);
-        authorities.addAll(permissions);
+//        authorities.addAll(permissions);
 
         
 

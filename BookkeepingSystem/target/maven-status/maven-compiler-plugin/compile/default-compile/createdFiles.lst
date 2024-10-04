@@ -13,7 +13,6 @@ com\kamjritztex\bookkeeping\service\CustomerService.class
 com\kamjritztex\bookkeeping\exception\ExceptionHandlerController.class
 com\kamjritztex\bookkeeping\exception\JwtAuthEntryPoint.class
 com\kamjritztex\bookkeeping\entity\Customer$CustomerBuilder.class
-com\kamjritztex\bookkeeping\repository\PermissionRepository.class
 com\kamjritztex\bookkeeping\repository\TransactionRepository.class
 com\kamjritztex\bookkeeping\service\impl\CustomerServiceImpl.class
 com\kamjritztex\bookkeeping\response\dto\CreateCustomerResponseDto$CreateCustomerResponseDtoBuilder.class
@@ -24,7 +23,6 @@ com\kamjritztex\bookkeeping\exception\RoleNotFoundException.class
 com\kamjritztex\bookkeeping\exception\JwtTokenException.class
 com\kamjritztex\bookkeeping\entity\Address$AddressBuilder.class
 com\kamjritztex\bookkeeping\entity\Account.class
-com\kamjritztex\bookkeeping\entity\Permission.class
 com\kamjritztex\bookkeeping\response\dto\CreateCustomerResponseDto.class
 com\kamjritztex\bookkeeping\auth\AuthService.class
 com\kamjritztex\bookkeeping\entity\Auditable.class
@@ -54,7 +52,6 @@ com\kamjritztex\bookkeeping\exception\JwtAccessDeniedHandler.class
 com\kamjritztex\bookkeeping\exception\CustomerNotFoundException.class
 com\kamjritztex\bookkeeping\dto\AccountResponseDto.class
 com\kamjritztex\bookkeeping\entity\Customer.class
-com\kamjritztex\bookkeeping\entity\Permission$PermissionBuilder.class
 com\kamjritztex\bookkeeping\dto\TransactionResponseDto.class
 com\kamjritztex\bookkeeping\dto\AddressDto.class
 com\kamjritztex\bookkeeping\entity\Role.class

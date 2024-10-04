@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,21 +36,21 @@ public class CustomerController {
 		
 		return ResponseEntity.ok(customerService.updateCustomer(updateDto));
 	}
-	@PostMapping("get-by-id/{id}")
+	@GetMapping("get-by-id/{id}")
 	public ResponseEntity<CustomerResponseDto> getCustomerById(@PathVariable("id")String id) {
 		return ResponseEntity.ok(customerService.getCustomerById(id).get());
 	}
-	@PostMapping("get-by-email/{email}")
+	@GetMapping("get-by-email/{email}")
 	public ResponseEntity<CustomerResponseDto> getCustomerEmail(@PathVariable("email")String email) {
 		
 		return ResponseEntity.ok(customerService.getCustomerByEmail(email).get());
 	}
-	@PostMapping("get-all")
+	@GetMapping("get-all")
 	public ResponseEntity<List<CustomerResponseDto>> getAllCustomers() {
 		
 		return ResponseEntity.ok(customerService.getAllCustomers());
 	}
-	@PostMapping("delete-by-id/{id}/{updatedBy}")
+	@DeleteMapping("delete-by-id/{id}/{updatedBy}")
 	public ResponseEntity<String> deleteCustomer(@PathVariable("id") String id, @PathVariable("updatedBy") String updatedBy) {
 		
 		return ResponseEntity.ok(customerService.deleteCustomer(id,updatedBy));
